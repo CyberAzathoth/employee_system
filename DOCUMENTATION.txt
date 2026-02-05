@@ -1,0 +1,512 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║           EMPLOYEE MANAGEMENT SYSTEM - COMPLETE DOCUMENTATION             ║
+║                      Role-Based Access Control System                     ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+TABLE OF CONTENTS:
+1. System Overview
+2. Features & Modules
+3. User Roles & Permissions
+4. Technologies Used
+5. Security Measures
+6. Database Structure
+7. Installation Guide
+8. User Guide
+9. Password & Login Attempt Tracking
+10. File Structure
+
+═══════════════════════════════════════════════════════════════════════════
+
+1. SYSTEM OVERVIEW
+═══════════════════════════════════════════════════════════════════════════
+
+This is a complete employee management system with:
+✓ Role-based access control (Manager, Admin, Super Admin)
+✓ Secure authentication with login attempt tracking
+✓ Password change logging
+✓ Soft delete (deleted records kept as logs)
+✓ Activity tracking
+✓ Protected pages (must login to access)
+
+KEY FEATURES:
+- Login required for all pages (except login page)
+- Different permissions based on role
+- Login attempt limiting (5 attempts → 30 second lockout)
+- Warning at 3 failed attempts
+- Complete audit trail of all actions
+- Password changes tracked with timestamps
+- Deleted employees stored as logs (no restore)
+
+═══════════════════════════════════════════════════════════════════════════
+
+2. FEATURES & MODULES
+═══════════════════════════════════════════════════════════════════════════
+
+MODULE 1: AUTHENTICATION SYSTEM
+─────────────────────────────────
+✓ Login page with username/password
+✓ Failed attempt tracking (max 5 attempts)
+✓ Warning at 3 failed attempts
+✓ 30-second account lockout after 5 attempts
+✓ All attempts logged with IP address
+✓ Session-based authentication
+✓ Automatic logout on inactivity
+
+MODULE 2: EMPLOYEE MANAGEMENT
+─────────────────────────────────
+✓ Add new employees
+✓ Edit employee information
+✓ Delete employees (Admin/Super Admin only)
+✓ View all active employees
+✓ Soft delete (records moved to deleted section)
+
+MODULE 3: USER MANAGEMENT (Admin/Super Admin only)
+───────────────────────────────────────────────────
+✓ Create user accounts linked to employees
+✓ Assign roles (Manager, Admin, Super Admin)
+✓ Change user passwords
+✓ Track who created each user
+✓ View all user accounts
+
+MODULE 4: PASSWORD LOGS
+───────────────────────────
+✓ View all password changes
+✓ See who changed passwords
+✓ Track password creation
+✓ View login attempts history
+✓ Filter by success/failed/locked
+✓ IP address tracking
+✓ Timestamp for all activities
+
+MODULE 5: DELETED EMPLOYEES (Admin/Super Admin only)
+─────────────────────────────────────────────────────
+✓ View deleted employee records
+✓ See who deleted each record
+✓ See when records were deleted
+✓ Calculate days since deletion
+✓ NO RESTORE FUNCTION (logs only)
+
+MODULE 6: ACTIVITY LOGS (Admin/Super Admin only)
+─────────────────────────────────────────────────
+✓ Track all user activities
+✓ View what module was accessed
+✓ See who performed actions
+✓ Track create/update/delete operations
+✓ View detailed timestamps
+
+═══════════════════════════════════════════════════════════════════════════
+
+3. USER ROLES & PERMISSIONS
+═══════════════════════════════════════════════════════════════════════════
+
+MANAGER ROLE:
+─────────────
+✓ CAN: Login/Logout
+✓ CAN: View all employees
+✓ CAN: Add new employees
+✓ CAN: Edit employee information
+✓ CAN: View password logs (their own attempts)
+✗ CANNOT: Delete employees
+✗ CANNOT: Access user management
+✗ CANNOT: View deleted employees
+✗ CANNOT: Access full activity logs
+
+ADMIN ROLE:
+───────────
+✓ CAN: Everything Manager can do
+✓ CAN: Delete employees (soft delete)
+✓ CAN: Create user accounts
+✓ CAN: Change user passwords
+✓ CAN: View deleted employees
+✓ CAN: View all activity logs
+✓ CAN: View all password logs
+✗ CANNOT: Create Super Admin accounts
+
+SUPER ADMIN ROLE:
+─────────────────
+✓ CAN: Everything (Full Access)
+✓ CAN: Create Super Admin accounts
+✓ CAN: All Admin permissions
+✓ CAN: View all system logs
+
+═══════════════════════════════════════════════════════════════════════════
+
+4. TECHNOLOGIES USED
+═══════════════════════════════════════════════════════════════════════════
+
+BACKEND:
+────────
+PHP 7.4+
+- Server-side logic
+- Session management
+- Password hashing
+- Form processing
+- Database operations
+
+MySQL 5.7+
+- Database management
+- Data persistence
+- Relationship management
+- Constraint enforcement
+
+PDO (PHP Data Objects)
+- Database abstraction
+- Prepared statements
+- SQL injection prevention
+
+FRONTEND:
+─────────
+HTML5
+- Page structure
+- Forms
+- Tables
+- Semantic markup
+
+CSS3
+- Styling
+- Responsive design
+- Grid layouts
+- Animations
+
+JavaScript (Vanilla)
+- Tab switching
+- Modal dialogs
+- Form validation
+- Dynamic interactions
+
+DEVELOPMENT ENVIRONMENT:
+────────────────────────
+XAMPP/WAMP/MAMP
+- Apache web server
+- MySQL database
+- PHP interpreter
+- phpMyAdmin (optional)
+
+═══════════════════════════════════════════════════════════════════════════
+
+5. SECURITY MEASURES
+═══════════════════════════════════════════════════════════════════════════
+
+SECURITY MEASURE #1: PASSWORD HASHING
+──────────────────────────────────────
+Technology: Bcrypt (via PASSWORD_DEFAULT)
+Implementation: password_hash() and password_verify()
+
+How it works:
+- Plain text passwords NEVER stored
+- Each password gets unique random salt
+- Cost factor of 10 (1,024 iterations)
+- 60-character hash generated
+- One-way encryption (cannot be reversed)
+
+Example:
+Input: "password123"
+Hash: $2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi
+
+SECURITY MEASURE #2: SQL INJECTION PREVENTION
+──────────────────────────────────────────────
+Technology: PDO Prepared Statements
+Implementation: prepare() + bindParam() + execute()
+
+How it works:
+- SQL structure separated from data
+- User input treated as data only
+- Special characters automatically escaped
+- Database-level protection
+
+Vulnerable: "SELECT * FROM User WHERE username = '$username'"
+Secure: prepare("SELECT * FROM User WHERE username = :username")
+
+SECURITY MEASURE #3: XSS PREVENTION
+────────────────────────────────────
+Technology: htmlspecialchars()
+Implementation: All output sanitized
+
+How it works:
+- Converts HTML special characters to entities
+- < becomes &lt;
+- > becomes &gt;
+- Prevents JavaScript execution
+
+SECURITY MEASURE #4: SESSION MANAGEMENT
+────────────────────────────────────────
+Technology: PHP Sessions
+Implementation: session_start() + $_SESSION
+
+How it works:
+- User credentials stored server-side
+- Only session ID sent to browser
+- Sessions expire on browser close
+- Session destroyed on logout
+
+SECURITY MEASURE #5: ACCESS CONTROL
+────────────────────────────────────
+Technology: Role-based permissions
+Implementation: requireLogin() + requireRole()
+
+How it works:
+- Every page checks if user logged in
+- Redirects to login if not authenticated
+- Role checked before allowing access
+- Server-side enforcement
+
+SECURITY MEASURE #6: LOGIN ATTEMPT LIMITING
+────────────────────────────────────────────
+Technology: Database-tracked attempts
+Implementation: failed_attempts counter + lockout timer
+
+How it works:
+- Track failed login attempts per user
+- Warning shown at 3 attempts
+- Account locked for 30 seconds at 5 attempts
+- Reset counter on successful login
+
+SECURITY MEASURE #7: AUDIT TRAIL
+─────────────────────────────────
+Technology: Logging tables
+Implementation: ActivityLog + PasswordLog + LoginAttemptLog
+
+How it works:
+- Every action recorded with timestamp
+- User who performed action tracked
+- IP addresses logged
+- Complete audit trail for compliance
+
+SECURITY MEASURE #8: SOFT DELETE
+─────────────────────────────────
+Technology: is_deleted flag
+Implementation: UPDATE instead of DELETE
+
+How it works:
+- Records never physically deleted
+- Set is_deleted = 1
+- Record who deleted and when
+- Maintain data integrity
+
+═══════════════════════════════════════════════════════════════════════════
+
+6. DATABASE STRUCTURE
+═══════════════════════════════════════════════════════════════════════════
+
+TABLE: Employee
+───────────────
+empID           INT             PRIMARY KEY, AUTO_INCREMENT
+name            VARCHAR(100)    NOT NULL
+position        VARCHAR(100)    NOT NULL
+birthdate       DATE            NOT NULL
+is_deleted      TINYINT(1)      DEFAULT 0
+deleted_at      DATETIME        NULL
+deleted_by      INT             NULL (FK → User)
+created_at      DATETIME        AUTO (timestamp)
+updated_at      DATETIME        AUTO (on update)
+
+TABLE: User
+───────────
+userID              INT             PRIMARY KEY, AUTO_INCREMENT
+empID               INT             NOT NULL (FK → Employee)
+username            VARCHAR(50)     UNIQUE, NOT NULL
+passwordHash        VARCHAR(255)    NOT NULL
+role                ENUM            (manager/admin/super_admin)
+is_active           TINYINT(1)      DEFAULT 1
+failed_attempts     INT             DEFAULT 0
+last_failed_attempt DATETIME        NULL
+lockout_until       DATETIME        NULL
+created_at          DATETIME        AUTO
+created_by          INT             NULL (FK → User)
+
+TABLE: PasswordLog
+──────────────────
+logID           INT             PRIMARY KEY, AUTO_INCREMENT
+userID          INT             NOT NULL (FK → User)
+action          VARCHAR(50)     NOT NULL
+changed_by      INT             NULL (FK → User)
+old_value       VARCHAR(255)    NULL
+new_value       VARCHAR(255)    NULL
+ip_address      VARCHAR(45)     NULL
+timestamp       DATETIME        AUTO
+
+TABLE: LoginAttemptLog
+──────────────────────
+attemptID       INT             PRIMARY KEY, AUTO_INCREMENT
+username        VARCHAR(50)     NOT NULL
+userID          INT             NULL (FK → User)
+status          ENUM            (success/failed/locked)
+ip_address      VARCHAR(45)     NULL
+attempt_time    DATETIME        AUTO
+
+TABLE: ActivityLog
+──────────────────
+activityID      INT             PRIMARY KEY, AUTO_INCREMENT
+userID          INT             NOT NULL (FK → User)
+action          VARCHAR(100)    NOT NULL
+module          VARCHAR(50)     NOT NULL
+target_id       INT             NULL
+details         TEXT            NULL
+timestamp       DATETIME        AUTO
+
+RELATIONSHIPS:
+─────────────
+Employee ← User (1:Many)
+User ← User.created_by (Self-referencing)
+User ← PasswordLog (1:Many)
+User ← LoginAttemptLog (1:Many)
+User ← ActivityLog (1:Many)
+
+═══════════════════════════════════════════════════════════════════════════
+
+7. INSTALLATION GUIDE
+═══════════════════════════════════════════════════════════════════════════
+
+STEP 1: Install XAMPP
+─────────────────────
+Download: https://www.apachefriends.org/
+Install and run XAMPP Control Panel
+Start Apache and MySQL services
+
+STEP 2: Deploy Files
+────────────────────
+Copy all files to:
+  Windows: C:\xampp\htdocs\employee_management\
+  Mac: /Applications/XAMPP/htdocs/employee_management/
+  Linux: /opt/lampp/htdocs/employee_management/
+
+STEP 3: Run Setup
+─────────────────
+Open browser: http://localhost/employee_management/setup.php
+This will:
+  ✓ Create database
+  ✓ Create all tables
+  ✓ Insert sample data
+  ✓ Create test accounts
+
+STEP 4: Login
+─────────────
+URL: http://localhost/employee_management/login.php
+Use test accounts (see below)
+
+═══════════════════════════════════════════════════════════════════════════
+
+8. USER GUIDE
+═══════════════════════════════════════════════════════════════════════════
+
+TEST ACCOUNTS:
+─────────────
+Super Admin:    superadmin / admin123
+Admin:          admin1 / password123
+Manager:        manager1 / password123
+
+USING THE SYSTEM:
+────────────────
+
+1. LOGIN
+   - Go to login page
+   - Enter username and password
+   - Click Login
+   - Redirected to Dashboard
+
+2. MANAGE EMPLOYEES (All Roles)
+   - Click "Employees" in sidebar
+   - Fill form to add new employee
+   - Click "Edit" button to modify
+   - Click "Delete" (Admin/Super Admin only)
+
+3. MANAGE USERS (Admin/Super Admin)
+   - Click "Users" in sidebar
+   - Select employee from dropdown
+   - Enter username and password
+   - Choose role
+   - Click "Create User"
+
+4. CHANGE PASSWORD (Admin/Super Admin)
+   - Go to Users page
+   - Click "Change Password" button
+   - Enter new password
+   - Submit
+
+5. VIEW PASSWORD LOGS (All Roles)
+   - Click "Password Logs" in sidebar
+   - Switch between tabs:
+     * Password Changes
+     * Login Attempts
+
+6. VIEW DELETED EMPLOYEES (Admin/Super Admin)
+   - Click "Deleted Employees" in sidebar
+   - View log of deleted records
+   - No restore available
+
+7. VIEW ACTIVITY LOGS (Admin/Super Admin)
+   - Click "Activity Logs" in sidebar
+   - See all user actions
+   - Filter by date/user/module
+
+8. LOGOUT
+   - Click "Logout" button in header
+   - Redirected to login page
+
+═══════════════════════════════════════════════════════════════════════════
+
+9. PASSWORD & LOGIN ATTEMPT TRACKING
+═══════════════════════════════════════════════════════════════════════════
+
+LOGIN ATTEMPT RULES:
+───────────────────
+Attempts 1-2:  Normal login error
+Attempt 3:     ⚠️ WARNING shown (2 attempts remaining)
+Attempts 4:    Warning continues
+Attempt 5:     🔒 ACCOUNT LOCKED for 30 seconds
+After lockout: Counter resets
+
+WHAT'S LOGGED:
+─────────────
+✓ Username attempted
+✓ Success/Failed/Locked status
+✓ IP address
+✓ Exact timestamp
+✓ User ID (if account exists)
+
+PASSWORD CHANGE LOGGING:
+───────────────────────
+✓ Who changed the password
+✓ Which account was changed
+✓ When it was changed
+✓ IP address of changer
+✓ Type of change (Created/Changed)
+
+WHERE TO VIEW:
+─────────────
+Password Logs → Login Attempts tab
+Shows all attempts for all users (Admin/Super Admin)
+Shows only your attempts (Manager)
+
+═══════════════════════════════════════════════════════════════════════════
+
+10. FILE STRUCTURE
+═══════════════════════════════════════════════════════════════════════════
+
+employee_management/
+│
+├── setup.php                  # Database setup script
+├── db_connect.php             # Database connection + helper functions
+├── database.sql               # SQL schema
+├── style.css                  # Main stylesheet
+│
+├── login.php                  # Login page (PUBLIC)
+├── dashboard.php              # Dashboard (PROTECTED)
+├── employees.php              # Employee management (PROTECTED)
+├── users.php                  # User management (ADMIN+)
+├── password_logs.php          # Password & login logs (PROTECTED)
+├── deleted_employees.php      # Deleted records (ADMIN+)
+├── activity_logs.php          # Activity tracking (ADMIN+)
+│
+├── includes/
+│   ├── header.php            # Header component
+│   └── sidebar.php           # Sidebar navigation
+│
+└── DOCUMENTATION.txt          # This file
+
+TOTAL FILES: 15
+
+═══════════════════════════════════════════════════════════════════════════
+
+END OF DOCUMENTATION
+═══════════════════════════════════════════════════════════════════════════
