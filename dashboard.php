@@ -47,7 +47,6 @@ $stats['total_activities'] = $conn->query($sql)->fetch()['count'];
             
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-icon" style="background: #4CAF50;">👥</div>
                     <div class="stat-info">
                         <h3><?php echo $stats['total_employees']; ?></h3>
                         <p>Total Employees</p>
@@ -55,7 +54,6 @@ $stats['total_activities'] = $conn->query($sql)->fetch()['count'];
                 </div>
                 
                 <div class="stat-card">
-                    <div class="stat-icon" style="background: #2196F3;">👤</div>
                     <div class="stat-info">
                         <h3><?php echo $stats['active_users']; ?></h3>
                         <p>Active Users</p>
@@ -63,7 +61,6 @@ $stats['total_activities'] = $conn->query($sql)->fetch()['count'];
                 </div>
                 
                 <div class="stat-card">
-                    <div class="stat-icon" style="background: #FF9800;">📊</div>
                     <div class="stat-info">
                         <h3><?php echo $stats['total_activities']; ?></h3>
                         <p>Today's Activities</p>
@@ -71,7 +68,6 @@ $stats['total_activities'] = $conn->query($sql)->fetch()['count'];
                 </div>
                 
                 <div class="stat-card">
-                    <div class="stat-icon" style="background: #9C27B0;">🔑</div>
                     <div class="stat-info">
                         <h3><?php echo strtoupper($_SESSION['role']); ?></h3>
                         <p>Your Role</p>
@@ -90,32 +86,32 @@ $stats['total_activities'] = $conn->query($sql)->fetch()['count'];
                 <h2>Your Permissions</h2>
                 <?php if ($_SESSION['role'] == 'super_admin'): ?>
                     <ul>
-                        <li>✅ View all employees</li>
-                        <li>✅ Add new employees</li>
-                        <li>✅ Edit employee information</li>
-                        <li>✅ Delete employees</li>
-                        <li>✅ Manage all users</li>
-                        <li>✅ View all logs</li>
-                        <li>✅ Access deleted records</li>
+                        <li>Can View all employees</li>
+                        <li>Can Add new employees</li>
+                        <li>Can Edit employee information</li>
+                        <li>Can Delete employees</li>
+                        <li>Can Manage all users</li>
+                        <li>Can View all logs</li>
+                        <li>Can Access deleted records</li>
                     </ul>
                 <?php elseif ($_SESSION['role'] == 'admin'): ?>
                     <ul>
-                        <li>✅ View all employees</li>
-                        <li>✅ Add new employees</li>
-                        <li>✅ Edit employee information</li>
-                        <li>✅ Delete employees</li>
-                        <li>✅ Manage users</li>
-                        <li>✅ View logs</li>
-                        <li>✅ Access deleted records</li>
+                        <li>Can View all employees</li>
+                        <li>Can Add new employees</li>
+                        <li>Can Edit employee information</li>
+                        <li>Can Delete employees</li>
+                        <li>Can Manage users</li>
+                        <li>Can View logs</li>
+                        <li>Can Access deleted records</li>
                     </ul>
                 <?php else: ?>
                     <ul>
-                        <li>✅ View all employees</li>
-                        <li>✅ Add new employees</li>
-                        <li>✅ Edit employee information</li>
-                        <li>❌ Cannot delete employees</li>
-                        <li>❌ Cannot manage users</li>
-                        <li>❌ Limited log access</li>
+                        <li>Can View all employees</li>
+                        <li>Can Add new employees</li>
+                        <li>Can Edit employee information</li>
+                        <li>Cannot delete employees</li>
+                        <li>Cannot manage users</li>
+                        <li>Limited log access</li>
                     </ul>
                 <?php endif; ?>
             </div>

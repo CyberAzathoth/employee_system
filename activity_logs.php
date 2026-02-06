@@ -42,28 +42,24 @@ $stats = $conn->query($sql)->fetch(PDO::FETCH_ASSOC);
             <!-- Statistics -->
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-icon" style="background: #2196F3;">📊</div>
                     <div class="stat-info">
                         <h3><?php echo $stats['total']; ?></h3>
                         <p>Total Activities</p>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon" style="background: #4CAF50;">📅</div>
                     <div class="stat-info">
                         <h3><?php echo $stats['today']; ?></h3>
                         <p>Today's Activities</p>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon" style="background: #FF9800;">👥</div>
                     <div class="stat-info">
                         <h3><?php echo $stats['employee_actions']; ?></h3>
                         <p>Employee Actions</p>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon" style="background: #9C27B0;">👤</div>
                     <div class="stat-info">
                         <h3><?php echo $stats['user_actions']; ?></h3>
                         <p>User Actions</p>
