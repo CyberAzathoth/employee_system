@@ -131,7 +131,7 @@ try {
     echo "<p style='color: green;'>✓ Sample users created!</p>";
     
     echo "<div style='background: white; padding: 20px; border-radius: 10px; margin-top: 20px;'>";
-    echo "<h2>Setup Complete! 🎉</h2>";
+    echo "<h2>Setup Complete!</h2>";
     echo "<h3>Test Accounts:</h3>";
     echo "<table style='width: 100%; border-collapse: collapse;'>";
     echo "<tr style='background: #667eea; color: white;'><th style='padding: 10px;'>Role</th><th style='padding: 10px;'>Username</th><th style='padding: 10px;'>Password</th><th style='padding: 10px;'>Permissions</th></tr>";

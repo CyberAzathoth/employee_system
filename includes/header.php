@@ -1,7 +1,7 @@
 <header class="header">
     <div class="header-content">
         <div class="logo">
-            <h2>📋 Employee Management System</h2>
+            <h2>Employee Management System</h2>
         </div>
         <div class="user-info">
             <span class="user-name"><?php echo e($_SESSION['emp_name']); ?></span>
