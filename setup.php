@@ -119,14 +119,12 @@ try {
     $sql = "INSERT INTO User (empID, username, passwordHash, role, created_by) VALUES
             (1, 'superadmin', :pass1, 'super_admin', NULL),
             (2, 'manager1', :pass2, 'manager', 1),
-            (3, 'admin1', :pass3, 'admin', 1),
-            (4, 'testuser', :pass4, 'super_admin', 1)";
+            (3, 'admin1', :pass3, 'admin', 1);
     $stmt = $conn->prepare($sql);
     $stmt->execute([
         ':pass1' => $password_admin,
         ':pass2' => $password_default,
-        ':pass3' => $password_default,
-        ':pass4' => $password_default
+        ':pass3' => $password_default
     ]);
     echo "<p style='color: green;'>✓ Sample users created!</p>";
     

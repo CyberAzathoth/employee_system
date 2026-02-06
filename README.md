@@ -3,15 +3,18 @@
 
 ---
 
-## 🚀 Quick Start
+Quick Start
 
 ### Installation (4 Steps):
 1. Install XAMPP and start Apache + MySQL
-2. Copy files to `htdocs/employee_management/`
-3. Run: `http://localhost/employee_management/setup.php`
-4. Login: `http://localhost/employee_management/login.php`
+2. Copy files to `htdocs/` folder and create another folder inside with your own preferred folder name
+3. Run the setup.php first on your browser 
+4. run the login.php to login
 
 ### Test Accounts:
+
+Here are the test accounts we can use.
+
 | Role | Username | Password | Permissions |
 |------|----------|----------|-------------|
 | Super Admin | `superadmin` | `admin123` | Full Access |
@@ -20,16 +23,16 @@
 
 ---
 
-## ✨ Features
+## Features
 
-### ✅ Complete Modules:
+### Complete Modules:
 1. **Employee Management** - Add, Edit, Delete (role-based)
 2. **User Management** - Create accounts, assign roles
 3. **Password Logs** - Track all password changes & login attempts
 4. **Deleted Employees** - Soft delete with audit trail (no restore)
 5. **Activity Logs** - Track all system activities
 
-### 🔒 Security Features:
+### Security Features:
 - ✓ **Login Required** - All pages protected except login
 - ✓ **Password Hashing** - Bcrypt encryption
 - ✓ **Login Attempt Limiting** - 5 attempts → 30s lockout
@@ -41,47 +44,47 @@
 
 ---
 
-## 👥 User Roles & Permissions
+## User Roles & Permissions
 
 ### Manager:
-- ✅ View employees
-- ✅ Add employees
-- ✅ Edit employees
-- ❌ Cannot delete
-- ❌ Cannot manage users
-- ❌ Limited log access
+- Can View employees
+- Can Add employees
+- Can Edit employees
+- Cannot delete
+- Cannot manage users
+- Limited log access
 
 ### Admin:
-- ✅ All Manager permissions
-- ✅ Delete employees
-- ✅ Manage users
-- ✅ View all logs
-- ✅ Access deleted records
-- ❌ Cannot create Super Admins
+- Have All Manager permissions
+- Can Delete employees
+- Can Manage users
+- Can View all logs
+- Can Access deleted records
+- Cannot create Super Admins
 
 ### Super Admin:
-- ✅ Full system access
-- ✅ Create Super Admin accounts
-- ✅ All Admin permissions
+- Have Full system access
+- Can Create Super Admin accounts
+- Have All Admin permissions
 
 ---
 
-## 📊 Password & Login Tracking
+##  Password & Login Tracking
 
 ### Login Attempt Rules:
 ```
 Attempt 1-2: Normal error message
-Attempt 3:   ⚠️ WARNING - "2 more attempts will lock account"
+Attempt 3:   WARNING - "2 more attempts will lock account"
 Attempt 4:   WARNING continues
-Attempt 5:   🔒 LOCKED for 30 seconds
+Attempt 5:   LOCKED for 30 seconds
 ```
 
 ### What's Logged:
-- ✓ All login attempts (success/failed/locked)
-- ✓ Password creations and changes
-- ✓ Who changed passwords
-- ✓ IP addresses
-- ✓ Timestamps
+- All login attempts (success/failed/locked)
+- Password creations and changes
+- Who changed passwords
+- IP addresses
+- Timestamps
 
 ### Where to View:
 Navigate to **Password Logs** in sidebar:
@@ -90,7 +93,7 @@ Navigate to **Password Logs** in sidebar:
 
 ---
 
-## 🗑️ Deleted Employees
+## Deleted Employees
 
 ### How It Works:
 - Employees are **soft deleted** (not permanently removed)
@@ -106,7 +109,7 @@ Admin and Super Admin only → Sidebar → "Deleted Employees"
 
 ---
 
-## 📁 Database Structure
+## Database Structure
 
 ### Tables Created:
 1. **Employee** - Employee records with soft delete
@@ -123,7 +126,7 @@ Admin and Super Admin only → Sidebar → "Deleted Employees"
 
 ---
 
-## 🔧 Technologies Used
+## Technologies Used
 
 **Backend:**
 - PHP 7.4+ (Server logic)
@@ -143,32 +146,6 @@ Admin and Super Admin only → Sidebar → "Deleted Employees"
 
 ---
 
-## 📖 Documentation
-
-Read **DOCUMENTATION.txt** for:
-- Complete feature list
-- Detailed security explanations
-- Database schema
-- User guide
-- API reference
-
----
-
-## 🌐 Access URLs
-
-```
-Setup:              http://localhost/employee_management/setup.php
-Login:              http://localhost/employee_management/login.php
-Dashboard:          http://localhost/employee_management/dashboard.php
-Employees:          http://localhost/employee_management/employees.php
-Users:              http://localhost/employee_management/users.php
-Password Logs:      http://localhost/employee_management/password_logs.php
-Deleted Employees:  http://localhost/employee_management/deleted_employees.php
-Activity Logs:      http://localhost/employee_management/activity_logs.php
-```
-
----
-
 ## ⚙️ System Requirements
 
 - XAMPP/WAMP/MAMP
@@ -179,27 +156,3 @@ Activity Logs:      http://localhost/employee_management/activity_logs.php
 
 ---
 
-## 📝 Key Features Summary
-
-✅ **3 Main Modules:** Employee Entry, User Entry, Password Module
-✅ **Role-Based Access:** Manager, Admin, Super Admin
-✅ **Login Protection:** All pages require authentication
-✅ **Attempt Tracking:** 5 attempts max, warning at 3
-✅ **Password Logs:** Complete history with IP tracking
-✅ **Soft Delete:** Deleted records kept as logs
-✅ **Activity Logs:** Track all user actions
-✅ **Secure:** Bcrypt, PDO, Sessions, XSS prevention
-
----
-
-## 🎯 Perfect For
-
-- Educational projects
-- Small business management
-- HR systems
-- Access control demonstrations
-- Security implementation examples
-
----
-
-© 2024 Employee Management System - Complete Role-Based Solution

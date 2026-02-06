@@ -105,107 +105,145 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <title>Login - Employee Management System</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .login-container {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 400px;
-        }
-        .login-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .login-header h1 {
-            color: #333;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-        .login-header p {
-            color: #666;
-            font-size: 14px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
-        }
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 5px;
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
-        input[type="text"]:focus,
-        input[type="password"]:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-        .btn-login {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .btn-login:hover {
-            transform: translateY(-2px);
-        }
-        .error {
-            background-color: #fee;
-            color: #c33;
-            padding: 12px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            border-left: 4px solid #c33;
-        }
-        .warning {
-            background-color: #fff3cd;
-            color: #856404;
-            padding: 12px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            border-left: 4px solid #ffc107;
-        }
-        .test-creds {
-            margin-top: 30px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 5px;
-            border-left: 4px solid #667eea;
-        }
-        .test-creds h4 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-        .test-creds p {
-            color: #666;
-            font-size: 13px;
-            margin: 5px 0;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #1a1a1a; /* Dark gray */
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* --- Login Card --- */
+.login-container {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    padding: 40px 35px;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Header --- */
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.login-header h1 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #7a0a0a; /* Dark red */
+}
+.login-header p {
+    color: #444;
+    font-size: 15px;
+}
+
+/* --- Form Groups --- */
+.form-group {
+    margin-bottom: 22px;
+}
+label {
+    display: block;
+    margin-bottom: 6px;
+    color: #333;
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #d1d1d1;
+    border-radius: 10px;
+    font-size: 15px;
+    background: #f7f7f7;
+    transition: 0.25s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #7a0a0a; /* Dark red focus */
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(122, 10, 10, 0.2);
+}
+
+/* --- Button --- */
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    background: #7a0a0a; /* Main dark red */
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.btn-login:hover {
+    background: #5c0707; /* Slightly darker red */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(122,10,10,0.35);
+}
+
+/* --- Error & Warning Messages --- */
+.error,
+.warning {
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.error {
+    background: #fbeaea;
+    border-left: 6px solid #b30000;
+    color: #8a0000;
+}
+
+.warning {
+    background: #f5f5f5;
+    border-left: 6px solid #888;
+    color: #555;
+}
+
+/* --- Test Credentials Box --- */
+.test-creds {
+    background: #f2f2f2;
+    padding: 18px;
+    margin-top: 28px;
+    border-radius: 12px;
+    border-left: 6px solid #7a0a0a; /* red accent */
+}
+.test-creds h4 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 700;
+}
+.test-creds p {
+    color: #555;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
     </style>
 </head>
 <body>
